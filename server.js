@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Ваш API-ключ OpenRouter
-const OPENROUTER_API_KEY = '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'; // Замените на ваш ключ
+const OPENROUTER_API_KEY = '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'; // Замените на ваш ключ
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 // Эндпоинт для обработки запросов от Roblox
@@ -16,7 +16,7 @@ app.post('/generate', async (req, res) => {
 
     try {
         const response = await axios.post(OPENROUTER_URL, {
-            model: 'deepseek-r1-0528:free', // Или другой доступный модель
+            model: 'deepseek/deepseek-r1-0528:free', // Или другой доступный модель
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 150
         }, {
