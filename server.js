@@ -15,7 +15,7 @@ app.post('/generate', async (req, res) => {
 
     try {
         const response = await axios.post(OPENROUTER_URL, {
-            model: 'gpt-3.5-turbo', // Или другой доступный модель
+            model: 'deepseek-r1-0528:free', // Или другой доступный модель
             messages: [{ role: 'user', content: prompt }],
             max_tokens: 150
         }, {
