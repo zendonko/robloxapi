@@ -1,7 +1,8 @@
+
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -26,10 +27,14 @@ app.post('/generate', async (req, res) => {
         });
 
         const generatedText = response.data.choices[0].message.content;
-        // Пример парсинга ответа (зависит от формата, возвращаемого нейросетью)
+        console.log('OpenRouter response:', generatedText);
+
+        // Парсинг ответа
         const luck = parseInt(generatedText.match(/Luck: (\d+)/)?.[1] || 50);
         const name = generatedText.match(/Name: ([^\n]+)/)?.[1] || 'Mystery Item';
         const visual = generatedText.match(/Visual: ([^\n]+)/)?.[1] || 'Color: Blue, Texture: Metal, Shape: Cube';
+
+        console.log('Parsed response:', { luck, name, visual });
 
         res.json({
             success: true,
@@ -38,8 +43,13 @@ app.post('/generate', async (req, res) => {
             visual
         });
     } catch (error) {
-        console.error('Error:', error.message);
-        res.status(500).json({ success: false, error: error.message });
+        console.error('Error in /generate:', error.message);
+        if (error.response) {
+            console.error('OpenRouter response:', error.response.data);
+            res.status(500).json({ success: false, error: error.response.data.message || 'OpenRouter API error' });
+        } else {
+            res.status(500).json({ success: false, error: error.message });
+        }
     }
 });
 
