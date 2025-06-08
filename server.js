@@ -6,7 +6,7 @@ const port = 3000;
 app.use(express.json());
 
 // Ваш API-ключ OpenRouter
-const OPENROUTER_API_KEY = 'your-openrouter-api-key'; // Замените на ваш ключ
+const OPENROUTER_API_KEY = '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'; // Замените на ваш ключ
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 // Эндпоинт для обработки запросов от Roblox
